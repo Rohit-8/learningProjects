@@ -1,23 +1,50 @@
 {
-  "name": "contentmoderator",
-  "version": "1.0.0",
-  "description": "Content moderation API with custom rules",
+  "name": "content-moderator-api",
+  "version": "2.0.0",
+  "description": "Advanced multilingual content moderation API with AI integration",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pm2:start": "pm2 start ecosystem.config.js",
+    "pm2:stop": "pm2 stop content-moderator",
+    "pm2:restart": "pm2 restart content-moderator",
+    "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "content-moderation",
+    "api",
+    "multilingual",
+    "ai",
+    "text-analysis",
+    "profanity-filter",
+    "express",
+    "nodejs"
+  ],
+  "author": "Your Name <your.email@domain.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "dependencies": {
+    "axios": "^1.11.0",
+    "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
-    "openai": "^5.10.2"
+    "express-rate-limit": "^7.1.5",
+    "googleapis": "^154.0.0",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "openai": "^5.10.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "eslint": "^8.56.0",
+    "nodemon": "^3.1.10",
+    "pm2": "^5.3.0"
   }
 }

@@ -1,0 +1,351 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "description": "Advanced multilingual content moderation rules",
+    "languages": ["english", "hindi", "hinglish", "punjabi"],
+    "last_updated": "2025-07-26",
+    "total_entries": 800,
+    "categories": ["abusive", "sexual", "threats", "hate_speech", "cyberbullying", "drugs", "violence", "extremism"]
+  },
+  "processing": {
+    "max_text_length": 50000,
+    "chunk_size": 5000,
+    "supported_encodings": ["utf-8", "ascii"],
+    "normalization": {
+      "remove_diacritics": true,
+      "case_insensitive": true,
+      "transliteration": true
+    }
+  },
+  "english": {
+    "abusive": {
+      "single_words": [
+        "asshole", "dickhead", "dumbass", "bastard", "jerk", "prick", "shithead", 
+        "moron", "idiot", "stupid", "dumb", "fool", "imbecile", "retard", "loser",
+        "scumbag", "douchebag", "jackass", "nincompoop", "dimwit", "blockhead",
+        "buffoon", "clown", "cretin", "dunce", "halfwit", "ignoramus", "simpleton",
+        "twit", "bonehead", "airhead", "birdbrain", "fathead", "knucklehead", "islamophobia",
+        "lamebrain", "numbskull", "pinhead", "thickhead", "nitwit", "doofus", "beef"
+      ],
+      "phrases": [
+        "you are stupid", "you are an idiot", "get lost loser", "shut your mouth",
+        "you're pathetic", "waste of space", "piece of trash", "good for nothing", "Cow worshipper",
+		    "you're a joke", "you're useless", "you're a disgrace", "you're a failure",
+        "brain dead", "mentally challenged", "complete moron", "total failure", 
+        "you suck", "you're worthless", "go die", "kill yourself", "nobody likes you",
+        "you're ugly", "fat pig", "disgusting creature", "piece of shit", "anti-islam",
+		    "cow piss drinker"
+      ]
+    },
+    "sexual": {
+      "single_words": [
+        "fuck", "fucker", "fucking", "dick", "bitch", "whore", "slut", "cock", 
+        "cunt", "balls", "pussy", "penis", "vagina", "boobs", "tits", "ass",
+        "nude", "naked", "sex", "porn", "masturbate", "allah", "orgasm", "horny", "islam",
+        "erotic", "sexy", "kinky", "fetish", "bondage", "oral", "anal", "muslims"
+      ],
+      "phrases": [
+        "fuck you", "go fuck yourself", "suck my dick", "son of a bitch",
+        "mother fucker", "father fucker", "want to have sex", "let's fuck",
+        "show me your boobs", "send nudes", "you're so hot", "want to bang you",
+        "strip for me", "take off your clothes", "touch yourself", "make love to me"
+      ]
+    },
+    "threats": {
+      "single_words": [
+        "kill", "murder", "strangle", "slaughter", "destroy", "eliminate", "death", 
+        "die", "shoot", "stab", "bomb", "explode", "torture", "hurt", "harm", 
+        "attack", "assault", "beat", "punch", "kick", "fight", "violence",
+		    "rape", "raped", "rapist", "gangbang", "kafir"
+      ],
+      "phrases": [
+        "I will kill you", "going to murder you", "want you dead", "end your life",
+        "take you out", "blow you up", "shoot you down", "stab you to death",
+        "beat you up", "kick your ass", "allah huakbar", "punch your face", "break your bones",
+        "torture you slowly", "make you suffer", "hunt you down", "find and kill you"
+      ]
+    },
+    "hate_speech": {
+      "single_words": [
+        "terrorist", "nazi", "fascist", "racist", "bigot", "supremacist", "extremist"
+      ],
+      "phrases": [
+        "go back to your country", "you don't belong here", "dirty immigrant", "all muslims are good",
+        "white power", "kill all minorities", "ethnic cleansing", "racial superiority", "kill hindus",
+		    "allah is supreme", "almighty allah"
+      ]
+    },
+    "cyberbullying": {
+      "phrases": [
+        "everyone hates you", "you have no friends", "nobody cares about you",
+        "you should disappear", "the world would be better without you",
+        "you're a mistake", "your parents regret having you", "you're alone forever"
+      ]
+    }
+  },
+  "hindi": {
+    "abusive": {
+      "single_words": [
+        "गुंडा", "हरामी", "कमीना", "नीच", "घटिया", "शैतान", "राक्षस", 
+        "बकचोद", "चूतिया", "गांडू", "लुच्चा", "लफंगा", "दुष्ट", "खराब",
+        "बेवकूफी", "मूर्खता", "हरामीपन", "कमीनीपन", "अंधभक्त"
+      ],
+      "phrases": [
+        "तू बेवकूफ है", "तुम मूर्ख हो", "भाग जा यहाँ से", "चुप रह", "मुंह बंद कर",
+        "तेरी औकात नहीं", "तू कुछ नहीं है", "बकवास बंद कर", "झूठ मत बोल",
+        "तुझसे बात नहीं करना", "दूर रह मुझसे", "तू गंदा है"
+      ]
+    },
+    "sexual": {
+      "single_words": [
+        "रंडी", "वेश्या", "कुत्ती", "सुअर", "हरामजादा", "हरामी", "रांड", "छिनाल", "चोदू",
+        "चोदना", "चुदाई", "सेक्स", "बिस्तर", "नंगा", "नंगी", "बॉडी", "शरीर", "अल्लाह",
+        "दिखा", "सेक्सी", "हॉट", "फिगर", "बूब्स", "गांड", "लंड", "भोसड़ीका", "मुसलमान",
+        "चूत", "गुदा", "लिंग", "योनि", "मल", "पेशाब", "मादरचोद", "भोसडीके"
+      ],
+      "phrases": [
+        "तेरी माँ की", "बहन की", "रंडी की औलाद", "तुझे चोदूंगा", "मजा आएगा",
+        "रात भर करेंगे", "बिस्तर पर आजा", "कपड़े उतार", "दिखा अपना शरीर", "बच्चा पैदा करना",
+        "कपड़े उतार", "सेक्सी लग रही है", "हॉट लग रही है", "तू बहुत हॉट है",
+        "तेरा फिगर कमाल का है", "बूब्स दिखा", "गांड दिखा", "लंड चुदवा दूंगा"
+      ]
+    },
+    "threats": {
+      "single_words": [
+        "मार", "मारूंगा", "खत्म", "हत्या", "मौत", "जान", "खून", "हमला", "लड़ाई"
+      ],
+      "phrases": [
+        "मैं तुझे मार दूंगा", "तेरी हत्या कर दूंगा", "तुझे खत्म कर दूंगा",
+        "तेरी जान ले लूंगा", "खून कर दूंगा", "तुझपर हमला करूंगा",
+        "मार-पीट करूंगा", "हड्डी तोड़ दूंगा", "सबक सिखाऊंगा",
+        "सर तन से जुदा", "सिर तन से जुदा", "तू मरेगा", "तू बर्बाद होगा",
+        "तू तड़पता रहेगा", "तू रोएगा", "तू चिल्लाएगा", "तू तड़पेगा", "तू मरेगा",
+        "तेरी जिंदगी खत्म कर दूंगा", "तेरा करियर बर्बाद कर दूंगा", 
+        "तन से जुदा", "तुझे सबक सिखाऊंगा"
+      ]
+    },
+    "hate_speech": {
+      "single_words": [
+        "दलाल", "इस्लामोफोबिया"
+      ],
+      "phrases": [
+        "अपने देश वापस जा", "यहाँ तुम्हारी जगह नहीं",
+        "जाति व्यवस्था सही है", "अल्लाह सबसे बड़ा है"
+      ]
+    },
+    "cyberbullying": {
+      "phrases": [
+        "सब तुझसे नफरत करते हैं", "तेरा कोई दोस्त नहीं", "तुझे कोई पसंद नहीं करता",
+        "तू अकेला रह जाएगा", "तेरे माता-पिता शर्मिंदा हैं", "तू एक गलती है",
+        "तुझसे अच्छा कोई नहीं मिला", "दुनिया तेरे बिना बेहतर होगी"
+      ]
+    },
+    "drugs": {
+      "single_words": [
+        "गांजा", "चरस", "अफीम", "हेरोइन", "कोकीन", "एलएसडी", "एक्स्टसी", "नशा"
+      ],
+      "phrases": [
+        "नशा करते हो", "गांजा पीते हो", "ड्रग्स बेचते हो", "नशे का सामान"
+      ]
+    },
+    "violence": {
+      "single_words": [
+        "हिंसा", "मारपीट", "लड़ाई", "दंगा", "हत्या", "खून", "घायल"
+      ],
+      "phrases": [
+        "हिंसा करूंगा", "मारपीट करूंगा", "दंगा करवाऊंगा", "खून-खराबा करूंगा"
+      ]
+    },
+    "extremism": {
+      "single_words": [
+        
+      ],
+      "phrases": [
+        
+      ]
+    }
+  },
+  "hinglish": {
+    "abusive": {
+      "single_words": [
+        "chutiya", "madarchod", "behenchod", "randi", "saala", "kamina", "harami",
+        "gandu", "lodu", "bakchod", "faltu", "waste", "nalayak", "pagal",  "mkc",
+        "stupid", "idiot sa", "bewakoof", "gadha", "ullu ka pattha", "andhabhakt",
+		    "andhbhakt", "bhosdike", "bhosda", "madharjaat", "bhangbhosda", "mc", "bc", "gand"
+      ],
+      "phrases": [
+        "tu chutiya hai", "tere ko kya lagta hai", "bhag yahan se", "chup kar na",
+        "tera dimag kharab hai", "tu pagal hai kya", "faltu mein time waste",
+        "bakwas band kar", "tu kuch nahi hai", "tera kya hai life mein",
+        "loser hai tu", "failure hai bilkul", "koi respect nahi hai teri",
+        "gandu ka bacha", "chutiyapa", "bakra", "kutte ka bachha", 
+        "tu kuch nahi kar sakta", "tu sirf bakra hai", "tu kutta hai"
+      ]
+    },
+    "sexual": {
+      "single_words": [
+        "sexy", "hot", "figure", "body", "boobs", "gaand", "lund", "choot",
+        "maal", "item", "pataka", "bomb", "hottie", "babe", "nude", "naked",
+		    "chut", "bur"
+      ],
+      "phrases": [
+        "tu bahut hot hai", "tera figure mast hai", "sexy lag rahi hai",
+        "kya maal hai yaar", "item hai ekdum", "pataka lag rahi hai",
+        "rate kya hai tera", "ek raat kitne mein", "maja aayega",
+        "send pics na", "photo bhej", "video call kar"
+      ]
+    },
+    "threats": {
+      "phrases": [
+        "maar dunga tujhe", "dekh lunga tujhe", "ghar pe aaunga",
+        "family ko pata chal jayega", "school mein bataunga sab ko",
+        "video viral kar dunga", "photo leak kar dunga", "damage kar dunga",
+        "life barbaad kar dunga", "career khatam kar dunga"
+      ]
+    },
+    "cyberbullying": {
+      "phrases": [
+        "koi friend nahi hai tera", "sab hate karte hain tujhe",
+        "lonely hai tu", "papa-mama disappoint hain tujhse",
+        "failure hai tu life mein", "kuch nahi kar sakta tu",
+        "teacher bhi hate karte hain", "class mein joke hai tu",
+        "social media pe roast kar dunga", "memes banaunga tera"
+      ]
+    },
+    "hate_speech": {
+      "phrases": [
+        "go back to india", "terrorist log ho", "all muslims are good",
+        "hindu terrorist", "religion war karo"
+      ]
+    },
+    "drugs": {
+      "single_words": [
+        "ganja", "charas", "drug", "maal", "item", "stuff", "dope"
+      ],
+      "phrases": [
+        "maal hai kya", "stuff chahiye", "high hona hai", "drug deal"
+      ]
+    },
+    "violence": {
+      "phrases": [
+        "violence kar dunga", "maar peet kar dunga", "fight kar lunga"
+      ]
+    },
+    "extremism": {
+      "phrases": [
+        "jihad kar dunga", "terrorist ban jaunga"
+      ]
+    }
+  },
+  "punjabi": {
+    "abusive": {
+      "single_words": [
+        "ਪਾਗਲ", "ਮੂਰਖ", "ਬੇਵਕੂਫ", "ਗਧਾ", "ਉੱਲੂ", "ਕਮੀਨਾ", "ਹਰਾਮੀ", "ਬਦਮਾਸ਼"
+      ],
+      "phrases": [
+        "ਤੂੰ ਪਾਗਲ ਹੈਂ", "ਮੂਰਖ ਨਾ ਬਣ", "ਭੱਜ ਜਾ ਇੱਥੋਂ", "ਚੁੱਪ ਕਰ",
+        "ਤੇਰੀ ਔਕਾਤ ਨਹੀਂ", "ਤੂੰ ਕੁਝ ਨਹੀਂ"
+      ]
+    },
+    "sexual": {
+      "single_words": ["ਰੰਡੀ", "ਵੇਸ਼ਿਆ", "ਹਰਾਮਜਾਦਾ"],
+      "phrases": ["ਤੇਰੀ ਮਾਂ ਦੀ", "ਬਹਿਣ ਦੀ", "ਰੰਡੀ ਦੀ ਔਲਾਦ"]
+    },
+    "threats": {
+      "phrases": ["ਮਾਰ ਦਿਆਂਗਾ", "ਖਤਮ ਕਰ ਦਿਆਂਗਾ"]
+    },
+    "hate_speech": {
+      "phrases": ["ਵਾਪਸ ਜਾ", "ਤੇਰੀ ਜਗ੍ਹਾ ਨਹੀਂ"]
+    },
+    "cyberbullying": {
+      "phrases": ["ਕੋਈ ਦੋਸਤ ਨਹੀਂ", "ਸਭ ਨਫ਼ਰਤ ਕਰਦੇ ਨੇ"]
+    },
+    "drugs": {
+      "single_words": ["ਗਾਂਜਾ", "ਚਰਸ"]
+    },
+    "violence": {
+      "phrases": ["ਮਾਰ-ਪਿੱਟ", "ਲੜਾਈ ਕਰਾਂਗਾ"]
+    },
+    "extremism": {
+      "phrases": ["ਧਰਮ ਦੇ ਨਾਮ ਤੇ"]
+    }
+  },
+  "patterns": {
+    "substitution_chars": {
+      "a": ["@", "4", "∆"],
+      "e": ["3", "€"],
+      "i": ["1", "!", "|"],
+      "o": ["0", "°"],
+      "s": ["$", "5", "§"],
+      "t": ["7", "+"],
+      "u": ["μ", "∪"]
+    },
+    "common_evasions": [
+      "f*ck", "f**k", "f***", "sh!t", "sh*t", "b!tch", "b*tch",
+      "a$$hole", "a**hole", "d!ck", "d*ck", "fu*k", "fuk", "fuc",
+      "btch", "b1tch", "as$", "a$$", "dam*", "da*n", "he11", "h3ll"
+    ],
+    "leetspeak": {
+      "examples": ["h3ll0", "w0rld", "l33t", "h4x0r", "n00b", "pr0"]
+    }
+  },
+  "severity_levels": {
+    "critical": {
+      "description": "Extreme content requiring immediate action",
+      "categories": ["threats", "hate_speech", "extremism"],
+      "action": "immediate_block",
+      "escalation": true
+    },
+    "high": {
+      "description": "Severe violations requiring moderation",
+      "categories": ["sexual", "violence", "cyberbullying"],
+      "action": "block_and_review",
+      "escalation": false
+    },
+    "medium": {
+      "description": "Moderate violations needing attention",
+      "categories": ["abusive", "drugs"],
+      "action": "flag_for_review",
+      "escalation": false
+    },
+    "low": {
+      "description": "Minor violations for monitoring",
+      "categories": ["mild_profanity"],
+      "action": "warn_user",
+      "escalation": false
+    }
+  },
+  "context_rules": {
+    "age_groups": {
+      "children": {
+        "max_age": 12,
+        "strict_mode": true,
+        "blocked_categories": ["sexual", "violence", "drugs", "abusive"]
+      },
+      "teens": {
+        "max_age": 17,
+        "strict_mode": false,
+        "blocked_categories": ["sexual", "extreme_violence", "drugs"]
+      },
+      "adults": {
+        "max_age": 99,
+        "strict_mode": false,
+        "blocked_categories": ["threats", "hate_speech"]
+      }
+    },
+    "platforms": {
+      "social_media": {
+        "allow_mild_profanity": false,
+        "community_guidelines": true
+      },
+      "gaming": {
+        "allow_mild_profanity": true,
+        "trash_talk_tolerance": "medium"
+      },
+      "educational": {
+        "zero_tolerance": true,
+        "academic_standards": true
+      }
+    }
+  }
+}

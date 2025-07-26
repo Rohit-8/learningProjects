@@ -1,76 +1,109 @@
-# Content Moderation API
+# Content Moderator API v2.0
 
-An AI-powered content moderation API that can verify and clean text content for inappropriate or abusive content.
+Advanced multilingual content moderation API with AI integration, supporting 5 languages and hybrid analysis combining custom rules with Google Perspective API.
 
 ## Features
 
-- Check text content for abusive or inappropriate content
-- Clean and sanitize text content while maintaining original meaning
-- RESTful API endpoints
-- Easy to integrate
+- **Multilingual Support**: English, Hindi, Hinglish, Punjabi
+- **AI-Powered Analysis**: Google Perspective API integration
+- **Hybrid Analysis**: Custom rules + AI for optimal accuracy
+- **High Performance**: Caching, chunking, and rate limiting
+- **Production Ready**: Security headers, compression, logging
+- **Comprehensive API**: RESTful endpoints with Swagger documentation
 
-## Setup
+## Quick Start
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Copy `.env.example` to `.env` and fill in your configuration:
-   ```bash
-   cp .env.example .env
-   ```
-4. Edit `.env` file with your OpenAI API key and other configurations
+### Installation
 
-## Running the Application
+```bash
+npm install
+```
 
-Development mode:
+### Environment Setup
+
+Create a `.env` file:
+
+```env
+PORT=5000
+PERSPECTIVE_API_KEY=your_google_api_key_here
+MAX_TEXT_LENGTH=50000
+CHUNK_SIZE=5000
+CACHE_MAX_SIZE=1000
+```
+
+### Development
+
 ```bash
 npm run dev
 ```
 
-Production mode:
+### Production
+
 ```bash
+# Using PM2
+npm run pm2:start
+
+# Or direct
 npm start
 ```
 
 ## API Endpoints
 
-### Check Content
-- **POST** `/api/content/check`
-- Request body:
-  ```json
-  {
-    "text": "Content to check for abuse"
-  }
-  ```
-- Response:
-  ```json
-  {
-    "hasAbusiveContent": true|false,
-    "reason": "Explanation if abusive, null if clean"
-  }
-  ```
+### V1 - Custom Rules
+- `POST /api/v1/content/check` - Analyze content
+- `POST /api/v1/content/clean` - Clean content
 
-### Clean Content
-- **POST** `/api/content/clean`
-- Request body:
-  ```json
-  {
-    "text": "Content to clean"
-  }
-  ```
-- Response:
-  ```json
-  {
-    "originalText": "Original content",
-    "cleanedText": "Cleaned content",
-    "modificationsExplanation": "Explanation of changes made"
-  }
-  ```
+### V2 - AI Enhanced
+- `POST /api/v2/content/analyze` - AI analysis
+- `POST /api/v2/content/hybrid-analysis` - Hybrid analysis
+- `POST /api/v2/content/batch-analysis` - Batch processing
 
-## Error Handling
+### Documentation
+- `GET /api-docs` - Swagger UI
+- `GET /health` - Health check
 
-The API returns appropriate HTTP status codes:
-- 400: Bad Request (missing or invalid input)
-- 500: Internal Server Error (processing error)
+## Example Usage
+
+```javascript
+// V1 - Custom Rules
+const response = await fetch('/api/v1/content/check', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    text: "Your content here",
+    useEnhanced: true
+  })
+});
+
+// V2 - AI Enhanced
+const response = await fetch('/api/v2/content/analyze', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    text: "Your content here",
+    requestedAttributes: ['TOXICITY', 'SEVERE_TOXICITY']
+  })
+});
+```
+
+## Performance
+
+- **Rate Limiting**: 100 requests per 15 minutes per IP
+- **Caching**: Intelligent caching for repeated content
+- **Chunking**: Handles large texts up to 50KB
+- **Compression**: Gzip compression enabled
+
+## Security
+
+- Helmet.js security headers
+- CORS protection
+- Input validation and sanitization
+- Rate limiting protection
+
+## Monitoring
+
+Access logs are handled by Morgan and stored in `/logs` directory when using PM2.
+
+## License
+
+MIT

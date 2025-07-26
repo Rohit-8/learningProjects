@@ -1,137 +1,84 @@
-const contentModerator = require('../utils/contentModerator');
+const validationService = require('../services/validationService');
+const messageService = require('../services/messageService');
+const dataTransformService = require('../services/dataTransformService');
+const contentAnalysisService = require('../services/contentAnalysisService');
+const errorHandlingService = require('../services/errorHandlingService');
 
 class ContentController {
   constructor() {
-    // Bind methods to the instance
     this.checkContent = this.checkContent.bind(this);
     this.cleanContent = this.cleanContent.bind(this);
   }
 
-  static createUserMessage(result) {
-    if (!result.hasAbusiveContent) {
-      return "No inappropriate content found.";
-    }
-
-    const messages = [];
-    const { categories } = result;
-
-    // Check for threats (highest priority)
-    if (categories.threats.words.length > 0 || categories.threats.phrases.length > 0) {
-      const words = categories.threats.words;
-      const phrases = categories.threats.phrases;
-      if (words.length > 0) messages.push(`Found threatening word(s): "${words.join('", "')}"`);
-      if (phrases.length > 0) messages.push(`Found threatening phrase(s): "${phrases.join('", "')}"`);
-    }
-
-    // Check for sexual content
-    if (categories.sexual.words.length > 0 || categories.sexual.phrases.length > 0) {
-      const words = categories.sexual.words;
-      const phrases = categories.sexual.phrases;
-      if (words.length > 0) messages.push(`Found inappropriate word(s): "${words.join('", "')}"`);
-      if (phrases.length > 0) messages.push(`Found inappropriate phrase(s): "${phrases.join('", "')}"`);
-    }
-
-    // Check for abusive content
-    if (categories.abusive.words.length > 0 || categories.abusive.phrases.length > 0) {
-      const words = categories.abusive.words;
-      const phrases = categories.abusive.phrases;
-      if (words.length > 0) messages.push(`Found abusive word(s): "${words.join('", "')}"`);
-      if (phrases.length > 0) messages.push(`Found abusive phrase(s): "${phrases.join('", "')}"`);
-    }
-
-    messages.push(`Content severity level: ${result.severity}`);
-    return messages.join('. ');
-  }
-
   async checkContent(req, res) {
     try {
-      const { text } = req.body;
-
-      if (!text) {
-        return res.status(400).json({ error: 'Text content is required' });
+      const validation = validationService.validateContentRequest(req);
+      if (!validation.isValid) {
+        return errorHandlingService.handleValidationError(validation, 'v1', res);
       }
 
-      const result = contentModerator.findAbusiveContent(text);
+      const { text, useEnhanced = false, platform, ageGroup, strictMode } = req.body;
       
-      // Create a user-friendly response
-      const response = {
-        hasAbusiveContent: result.hasAbusiveContent,
-        severity: result.severity,
-        details: {
-          abusive: result.categories.abusive,
-          sexual: result.categories.sexual,
-          threats: result.categories.threats
-        },
-        message: ContentController.createUserMessage(result)
-      };
+      let result, responseData;
 
-      res.json(response);
+      if (useEnhanced) {
+        result = await contentAnalysisService.performEnhancedAnalysis(text, { platform, ageGroup, strictMode });
+        responseData = dataTransformService.buildEnhancedAnalysisResponse(result);
+        responseData.version = 'v1-enhanced';
+      } else {
+        result = await contentAnalysisService.performClassicAnalysis(text);
+        const userMessage = messageService.createUserMessage(result);
+        responseData = dataTransformService.buildClassicAnalysisResponse(result, userMessage);
+        responseData.version = 'v1-classic';
+      }
+
+      res.json(responseData);
     } catch (error) {
-      console.error('Error in content check:', error);
-      res.status(500).json({
-        error: 'Failed to check content',
-        details: error.message
-      });
+      errorHandlingService.handleControllerError(error, 'v1', 'check content', res);
     }
   }
 
   async cleanContent(req, res) {
     try {
-      const { text } = req.body;
-
-      if (!text) {
-        return res.status(400).json({ error: 'Text content is required' });
+      const validation = validationService.validateContentRequest(req);
+      if (!validation.isValid) {
+        return errorHandlingService.handleValidationError(validation, 'v1', res);
       }
 
-      const result = contentModerator.cleanContent(text);
-      res.json(result);
+      const { 
+        text, 
+        useEnhanced = false, 
+        cleaningLevel = 'moderate',
+        platform, 
+        ageGroup, 
+        strictMode,
+        preserveLength = false
+      } = req.body;
+
+      let result, responseData;
+
+      if (useEnhanced) {
+        result = await contentAnalysisService.performEnhancedCleaning(text, {
+          cleaningLevel, 
+          platform, 
+          ageGroup, 
+          strictMode, 
+          preserveLength 
+        });
+        responseData = dataTransformService.buildEnhancedCleaningResponse(result);
+        responseData.version = 'v1-enhanced';
+      } else {
+        result = await contentAnalysisService.performClassicCleaning(text);
+        responseData = dataTransformService.buildClassicCleaningResponse(result);
+        responseData.version = 'v1-classic';
+      }
+
+      res.json(responseData);
     } catch (error) {
-      console.error('Error in content cleaning:', error);
-      res.status(500).json({
-        error: 'Failed to clean content',
-        details: error.message
-      });
+      errorHandlingService.handleControllerError(error, 'v1', 'clean content', res);
     }
-  }
-
-  _createUserMessage(result) {
-    if (!result.hasAbusiveContent) {
-      return "No inappropriate content found.";
-    }
-
-    const messages = [];
-    const { categories } = result;
-
-    // Check for threats (highest priority)
-    if (categories.threats.words.length > 0 || categories.threats.phrases.length > 0) {
-      const words = categories.threats.words;
-      const phrases = categories.threats.phrases;
-      if (words.length > 0) messages.push(`Found threatening word(s): "${words.join('", "')}"`);
-      if (phrases.length > 0) messages.push(`Found threatening phrase(s): "${phrases.join('", "')}"`);
-    }
-
-    // Check for sexual content
-    if (categories.sexual.words.length > 0 || categories.sexual.phrases.length > 0) {
-      const words = categories.sexual.words;
-      const phrases = categories.sexual.phrases;
-      if (words.length > 0) messages.push(`Found inappropriate word(s): "${words.join('", "')}"`);
-      if (phrases.length > 0) messages.push(`Found inappropriate phrase(s): "${phrases.join('", "')}"`);
-    }
-
-    // Check for abusive content
-    if (categories.abusive.words.length > 0 || categories.abusive.phrases.length > 0) {
-      const words = categories.abusive.words;
-      const phrases = categories.abusive.phrases;
-      if (words.length > 0) messages.push(`Found abusive word(s): "${words.join('", "')}"`);
-      if (phrases.length > 0) messages.push(`Found abusive phrase(s): "${phrases.join('", "')}"`);
-    }
-
-    messages.push(`Content severity level: ${result.severity}`);
-
-    return messages.join('. ');
   }
 }
 
-// Export a new instance of the controller
 const controller = new ContentController();
 module.exports = controller;
